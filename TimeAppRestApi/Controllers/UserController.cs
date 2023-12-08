@@ -83,7 +83,23 @@ namespace TimeAppRestApi.Controllers
             return NoContent();
         }
 
-        
+        // Usuwanie istniejącego użytkownika
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var users = ReadUsersFromFile();
+            var userToDelete = users.FirstOrDefault(u => u.Id == id);
+
+            if (userToDelete == null)
+            {
+                return NotFound();
+            }
+
+            users.Remove(userToDelete);
+            WriteUsersToFile(users);
+
+            return NoContent();
+        }
 
         [HttpGet("{id}/notes")]
         public IActionResult GetNotes(int id)
@@ -98,9 +114,84 @@ namespace TimeAppRestApi.Controllers
             return Ok(user.Notes);
         }
 
-        
+        [HttpPost("{id}/notes")]
+        public IActionResult AddNote(int id, [FromBody] Note newNote)
+        {
+            var users = ReadUsersFromFile();
+            var user = users.FirstOrDefault(u => u.Id == id);
 
-        
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            if (user.Notes == null)
+            {
+                user.Notes = new List<Note>();
+            }
+
+            newNote.Id = GetNextNoteId(user.Notes);
+            user.Notes.Add(newNote);
+
+            WriteUsersToFile(users);
+
+            return CreatedAtAction(nameof(GetNotes), new { id = user.Id }, user.Notes);
+        }
+
+        [HttpPut("{id}/notes/{noteId}")]
+        public IActionResult UpdateNote(int id, int noteId, [FromBody] Note updatedNote)
+        {
+            var users = ReadUsersFromFile();
+            var user = users.FirstOrDefault(u => u.Id == id);
+
+            if (user == null || user.Notes == null)
+            {
+                return NotFound();
+            }
+
+            var existingNote = user.Notes.FirstOrDefault(n => n.Id == noteId);
+
+            if (existingNote == null)
+            {
+                return NotFound();
+            }
+
+            // Zaktualizuj dane notatki
+            existingNote.Title = updatedNote.Title;
+            existingNote.Description = updatedNote.Description;
+            existingNote.StartDate = updatedNote.StartDate;
+            existingNote.Deadline = updatedNote.Deadline;
+            existingNote.Status = updatedNote.Status;
+
+            WriteUsersToFile(users);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}/notes/{noteId}")]
+        public IActionResult DeleteNote(int id, int noteId)
+        {
+            var users = ReadUsersFromFile();
+            var user = users.FirstOrDefault(u => u.Id == id);
+
+            if (user == null || user.Notes == null)
+            {
+                return NotFound();
+            }
+
+            var noteToDelete = user.Notes.FirstOrDefault(n => n.Id == noteId);
+
+            if (noteToDelete == null)
+            {
+                return NotFound();
+            }
+
+            user.Notes.Remove(noteToDelete);
+
+            WriteUsersToFile(users);
+
+            return NoContent();
+        }
 
         // Metoda pomocnicza do odczytu danych użytkowników z pliku
         private List<User> ReadUsersFromFile()

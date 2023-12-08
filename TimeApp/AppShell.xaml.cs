@@ -17,6 +17,7 @@ namespace TimeApp
             Routing.RegisterRoute(nameof(LoadingPage), typeof(LoadingPage));
             Routing.RegisterRoute(nameof(AddNotePage), typeof(AddNotePage));
             Routing.RegisterRoute(nameof(SetingsPage), typeof(SetingsPage));
+            Routing.RegisterRoute(nameof(EditNotePage), typeof(EditNotePage));
         }
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimeApp.View.Main.EditNotePage"
+             Title="EditNotePage">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Label Text="Edytuj Notatkę" FontSize="24" FontAttributes="Bold" Margin="0,0,0,20" />
+
+            <Entry Placeholder="{Binding note.Title}" Text="{Binding Title}" FontSize="18" Margin="0,0,0,10" />
+            <Entry Placeholder="Opis" Text="{Binding Description}" FontSize="18" Margin="0,0,0,10" />
+            <Label Text="Czas rozpoczęcia"/>
+            <DatePicker Date="{Binding StartDate}" Format="D" FontSize="18" Margin="0,0,0,10" />
+            <Label Text="Data zakończenia"/>
+            <DatePicker Date="{Binding Deadline}" Format="D" FontSize="18" Margin="0,0,0,10" />
+
+            <Picker Title="Status" SelectedIndex="{Binding StatusIndex}" FontSize="18" Margin="0,0,0,20" />
+
+            <Button Text="Zapisz zmiany" Command="{Binding SaveCommand}" FontSize="18" BackgroundColor="Green" TextColor="White" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
