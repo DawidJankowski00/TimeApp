@@ -26,6 +26,17 @@
                       Title="Strona główna"/>
         </Tab>
     </FlyoutItem>
+
+    <FlyoutItem
+    FlyoutItemIsVisible="True"
+    Title="Zespoly">
+        <Tab>
+            <ShellContent ContentTemplate="{DataTemplate main:TeamsPage}" 
+                  Title="Teams"/>
+        </Tab>
+    </FlyoutItem>
+
+    
     
 
     <Shell.FlyoutFooter>

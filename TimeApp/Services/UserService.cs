@@ -69,6 +69,25 @@ namespace TimeApp.Services
             return false;
         }
 
-       
+        public async Task<bool> AddNote(Note note)
+        {
+            var userId = App.User.Id;
+            var response = await _httpClient.PostAsJsonAsync(httpadres + "/api/User/" + userId + "/Notes" , note);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> DeleteNote(int id)
+        {
+            var userId = App.User.Id;
+            var response = await _httpClient.DeleteAsync(httpadres + "/api/User/" + userId + "/Notes/" + id);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimeApp.View.Main.TeamsPage"
+             Title="TeamsPage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <RefreshView IsRefreshing="{Binding IsRefreshing}"
+         Command="{Binding RefreshCommand}">
+                <CollectionView ItemsSource="{Binding Teams}" SelectionMode="Single" x:Name="MyCollectionView">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="1" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="5">
+                                <Frame BackgroundColor="LightGray" HasShadow="True" Margin="5" Padding="10" CornerRadius="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Treść główna - Tylko nazwa drużyny -->
+                                        <StackLayout Grid.Column="1">
+                                            <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18" />
+                                        </StackLayout>
+
+                                        <!-- Możesz dodać przyciski lub inne elementy jeśli potrzebujesz -->
+
+                                    </Grid>
+                                    <!-- Możesz dodać GestureRecognizers jeśli potrzebujesz -->
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                            Command="{Binding BindingContext.DetailTeamCommand, Source={x:Reference MyCollectionView}}"/>
+                                    </Frame.GestureRecognizers>
+
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </RefreshView>
+            <HorizontalStackLayout Grid.Row="1">
+                <Button Text="Add" Command="{Binding GoToAddTeamCommand}" FontSize="18" BackgroundColor="Green" TextColor="White"/>
+                <Button Text="Odswierz" Command="{Binding RefreshCommand}" FontSize="18" BackgroundColor="Green" TextColor="White"/>
+            </HorizontalStackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

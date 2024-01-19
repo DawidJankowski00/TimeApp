@@ -18,6 +18,10 @@ namespace TimeApp
             Routing.RegisterRoute(nameof(AddNotePage), typeof(AddNotePage));
             Routing.RegisterRoute(nameof(SetingsPage), typeof(SetingsPage));
             Routing.RegisterRoute(nameof(EditNotePage), typeof(EditNotePage));
+            Routing.RegisterRoute(nameof(TeamsPage), typeof(TeamsPage));
+            Routing.RegisterRoute(nameof(AddTeamPage), typeof(AddTeamPage));
+            Routing.RegisterRoute(nameof(DetailsTeamPage), typeof(DetailsTeamPage));
+            Routing.RegisterRoute(nameof(TeamUsersPage), typeof(TeamUsersPage));
         }
     }
 }

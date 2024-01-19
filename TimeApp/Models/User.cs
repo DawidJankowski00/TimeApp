@@ -9,5 +9,7 @@ namespace TimeApp.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public List<Note> Notes { get; set; }
+
+        public List<int> GroupsId { get; set; }
     }
 }

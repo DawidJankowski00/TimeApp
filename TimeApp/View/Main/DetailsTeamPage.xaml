@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimeApp.View.Main.DetailsTeamPage"
+             Title="DetailsTeamPage">
+    <VerticalStackLayout>
+        <Label 
+            Text="{Binding Team.Name}"
+            VerticalOptions="Center" 
+            FontSize="Header"/>
+        <Button IsVisible="{Binding IsMod}" Command="{Binding GoToTeamUsersCommand}" Text="Użytkownicy" FontSize="18" BackgroundColor="Blue" TextColor="White"/>
+        <Button Text="Notatki" Command="{Binding .}" FontSize="18" BackgroundColor="Orange" TextColor="White"/>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimeApp.View.Main.TeamUsersPage"
+             Title="TeamUsersPage">
+    <StackLayout>
+        <Entry Text="{Binding Id}" Placeholder="Id użytkownika" x:Name="UserIdEntry" />
+
+        <!-- Guzik "Dodaj" obok pola tekstowego -->
+        <Button Text="Dodaj" Command="{Binding AddUserToTeamCommand}" HorizontalOptions="Start" VerticalOptions="Center"/>
+
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Label Text="Nazwa" FontAttributes="Bold" FontSize="20" VerticalOptions="Center"/>
+
+
+            <Label Text="Leader" FontAttributes="Bold" FontSize="20" Grid.Column="1" HorizontalOptions="Start"/>
+
+
+            <Label Text="Moderator" FontAttributes="Bold" FontSize="20" Grid.Column="2" HorizontalOptions="Start"/>
+
+        </Grid>
+
+        <CollectionView ItemsSource="{Binding Users}" SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Nazwa -->
+                        <Label Text="{Binding Name}" VerticalOptions="Center"/>
+
+                        <!-- Guzik "Tak" po lewej stronie -->
+                        <Button Text="Tak" Grid.Column="1" HorizontalOptions="Start"/>
+
+                        <!-- Guzik "Tak" po lewej stronie -->
+                        <Button CommandParameter="{Binding .}" Text="Tak" Grid.Column="2" HorizontalOptions="Start"/>
+
+                        <!-- Guzik "Usuń" na końcu -->
+                        <Button CommandParameter="{Binding .}" Command="{Binding DelateUserFromTeamCommand}" Text="Usuń" Grid.Column="3" HorizontalOptions="End"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>
