@@ -4,6 +4,9 @@
              xmlns:viewmodel="clr-namespace:TimeApp.ViewModel"
              x:Class="TimeApp.View.LoginPage"
              Title="LoginPage">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False"/>
+    </Shell.BackButtonBehavior>
     <VerticalStackLayout 
             Spacing="25" 
             Padding="30,0" 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimeApp.View.Main.MyTeamNotesPage"
+             Title="MyTeamNotesPage">
+    <RefreshView IsRefreshing="{Binding IsRefreshing}"
+               Command="{Binding RefreshCommand}">
+        <CollectionView ItemsSource="{Binding Notes}" SelectionMode="Single" x:Name="MyCollectionView">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="1" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="5">
+                        <Frame BackgroundColor="{Binding Note.DateStatus}" HasShadow="True" Margin="5" Padding="10" CornerRadius="10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Kwadrat do zaznaczania -->
+                                <CheckBox IsChecked="{Binding Note.IsCompleted}" 
+                                      Grid.Column="0" 
+                                      VerticalOptions="Center" 
+                                      HorizontalOptions="Start">
+
+                                </CheckBox>
+
+                                <!-- Treść główna -->
+                                <StackLayout Grid.Column="1">
+                                    <Label Text="{Binding Note.Title}" FontAttributes="Bold" FontSize="18" Margin="0,0,0,10" />
+                                    <Label Text="{Binding Note.Description}" FontSize="14" Margin="0,0,0,5" />
+                                    <Label Text="{Binding Note.Deadline, StringFormat='Deadline: {0:dd/MM/yyyy}'}" FontSize="12" Margin="0,0,0,5" />
+
+                                </StackLayout>
+
+                                
+                            </Grid>
+                            
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </RefreshView>
+</ContentPage>

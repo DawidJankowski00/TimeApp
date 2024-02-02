@@ -45,7 +45,7 @@ namespace TimeApp.ViewModel.Main
             }
         }
         [RelayCommand]
-        async void GoToAddTeam()
+        async Task GoToAddTeam()
         {
             
             await Shell.Current.GoToAsync($"{nameof(AddTeamPage)}");

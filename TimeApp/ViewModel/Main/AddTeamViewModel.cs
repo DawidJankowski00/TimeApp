@@ -18,17 +18,22 @@ namespace TimeApp.ViewModel.Main
         UserService userService = new UserService();
         TeamService teamService = new TeamService();
 
+        public AddTeamViewModel()
+        {
+            Title = "AddTeam";
+        }
+
 
         [RelayCommand]
         async void CreateTeam()
         {
-            if (_name == null)
+            if (Name == null)
             {
                 await Shell.Current.DisplayAlert("Error!", $"Pole nazwa jest puste", "OK");
                 return;
             }
             Team team = new Team();
-            team.Name = _name;
+            team.Name = Name;
             team.LeaderId = App.User.Id;
             
             team.Moderators = new();
@@ -36,6 +41,7 @@ namespace TimeApp.ViewModel.Main
             team.MembersIds = new();
             team.MembersIds.Add(App.User.Id);
             team.TeamNotes = new();
+            team.Messages = new();
 
             var response2 = await teamService.AddTeam(team);
             if (response2)

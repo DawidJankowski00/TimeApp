@@ -29,5 +29,26 @@ namespace TimeApp.ViewModel.Main
             
             await Shell.Current.GoToAsync($"{nameof(TeamUsersPage)}");
         }
+
+        [RelayCommand]
+        async void GoToMyTeamNotes()
+        {
+
+            await Shell.Current.GoToAsync($"{nameof(MyTeamNotesPage)}");
+        }
+
+        [RelayCommand]
+        async void GoToTeamNotes()
+        {
+
+            await Shell.Current.GoToAsync($"{nameof(TeamNotesPage)}");
+        }
+
+        [RelayCommand]
+        async void GoToTeamChat()
+        {
+
+            await Shell.Current.GoToAsync($"{nameof(TeamChatPage)}");
+        }
     }
 }

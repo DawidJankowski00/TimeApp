@@ -89,5 +89,16 @@ namespace TimeApp.Services
             }
             return false;
         }
+
+        public async Task<bool> UpdateNote(Note note)
+        {
+            var userId = App.User.Id;
+            var response = await _httpClient.PutAsJsonAsync(httpadres + "/api/User/" + userId + "/Notes/" + note.Id, note);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

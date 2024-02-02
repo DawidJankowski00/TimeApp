@@ -46,6 +46,9 @@ namespace TimeApp.ViewModel
                     App.User = user;
 
                     await Shell.Current.GoToAsync($"{nameof(MainPage)}");
+                    
+
+
 
                 }
                 else

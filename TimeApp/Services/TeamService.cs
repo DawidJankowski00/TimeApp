@@ -52,5 +52,15 @@ namespace TimeApp.Services
             }
             return false;
         }
+
+        public async Task<bool> AddTeamNote(Team team, TeamNote note)
+        {
+            var response = await _httpClient.PostAsJsonAsync(httpadres + "/api/Group/" + team.Id.ToString() + "/notes", note);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

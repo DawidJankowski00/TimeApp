@@ -36,7 +36,10 @@ namespace TimeApp.ViewModel.Main
 
         private void LoadNotes()
         {
-            foreach (Note note in App.User.Notes)
+
+            var sortedNotes = App.User.Notes.OrderBy(note => note.Deadline);
+
+            foreach (Note note in sortedNotes)
             {
                 Notes.Add(note);
             }
@@ -46,10 +49,7 @@ namespace TimeApp.ViewModel.Main
         [RelayCommand]
         async void GoToAddNote()
         {
-            if (Preferences.ContainsKey(nameof(App.User)))
-            {
-                Preferences.Remove(nameof(App.User));
-            }
+            
             await Shell.Current.GoToAsync($"{nameof(AddNotePage)}");
         }
 
@@ -86,6 +86,15 @@ namespace TimeApp.ViewModel.Main
         }
 
 
+        
+
+        [RelayCommand]
+        public async void Start()
+        {
+            await Shell.Current.DisplayAlert("Gratulacje!", $"test", "OK");
+        }
+
+
         [RelayCommand]
         async void Refresh()
         {
@@ -99,7 +108,7 @@ namespace TimeApp.ViewModel.Main
 
                 // Czyszczenie i ponowne załadowanie notatek
                 Notes.Clear();
-                foreach (Note note in App.User.Notes)
+                foreach (Note note in App.User.Notes.OrderBy(note => note.Deadline))
                 {
                     Notes.Add(note);
                 }
@@ -114,5 +123,6 @@ namespace TimeApp.ViewModel.Main
                 IsRefreshing = false;
             }
         }
+
     }
 }

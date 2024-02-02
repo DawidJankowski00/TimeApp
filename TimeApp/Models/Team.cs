@@ -17,6 +17,11 @@ namespace TimeApp.Models
 
         public List<TeamNote> TeamNotes { get; set; }
 
+        public List<Message> Messages { get; set; }
 
+        public int GetNextMsgId()
+        {
+            return Messages.Any() ? Messages.Max(m => m.Id) + 1 : 1;
+        }
     }
 }

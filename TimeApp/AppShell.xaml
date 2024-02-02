@@ -5,10 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TimeApp"
     xmlns:main="clr-namespace:TimeApp.View.Main"
-    xmlns:startupPages="clr-namespace:TimeApp.View">
-
+    xmlns:startupPages="clr-namespace:TimeApp.View"
+    FlyoutBehavior="Flyout">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False"/>
+    </Shell.BackButtonBehavior>
     <ShellContent 
-
         FlyoutItemIsVisible="False"
         ContentTemplate="{DataTemplate startupPages:LoadingPage}"
         Route="LoadingPage"/>

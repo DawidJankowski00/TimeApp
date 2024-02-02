@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,22 @@ namespace TimeApp.ViewModel.Main
         [ObservableProperty]
         public DateTime _deadLine;
         UserService userService = new UserService();
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
+        public AddNoteViewModel()
+        {
+            _startDate = DateTime.Today;
+            _deadLine = DateTime.Today;
+        }
+
+
 
         [RelayCommand]
         async void Save()
@@ -49,8 +66,11 @@ namespace TimeApp.ViewModel.Main
             note.Title = _title;
             note.Description = _description;
             note.StartDate = _startDate;
+            note.Deadline = _deadLine;
             note.AuthorId = App.User.Id;
+            note.Status = TimeAppRestApi.Models.TaskStatus.NotStarted;
             var response = await userService.AddNote(note);
+            
             if (response)
             {
                 await Shell.Current.DisplayAlert("Gratulacje!", $"Pomyślnie dodano!", "OK");

@@ -2,13 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimeApp.View.Main.DetailsTeamPage"
-             Title="DetailsTeamPage">
+             Title="{Binding Team.Name}">
     <VerticalStackLayout>
-        <Label 
-            Text="{Binding Team.Name}"
-            VerticalOptions="Center" 
-            FontSize="Header"/>
         <Button IsVisible="{Binding IsMod}" Command="{Binding GoToTeamUsersCommand}" Text="Użytkownicy" FontSize="18" BackgroundColor="Blue" TextColor="White"/>
-        <Button Text="Notatki" Command="{Binding .}" FontSize="18" BackgroundColor="Orange" TextColor="White"/>
+        <Button IsVisible="{Binding IsMod}" Text="Zadania" Command="{Binding GoToTeamNotesCommand}" FontSize="18" BackgroundColor="Orange" TextColor="White"/>
+        <Button Text="Czat" Command="{Binding GoToTeamChatCommand}" FontSize="18" BackgroundColor="LightBlue" TextColor="White"/>
+        <Button Text="Moje zadania" Command="{Binding GoToMyTeamNotesCommand}" FontSize="18" BackgroundColor="Orange" TextColor="White"/>
+
     </VerticalStackLayout>
 </ContentPage>

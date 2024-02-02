@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TimeApp.View.Main.TeamChatPage"
+             Title="TeamChatPage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- Lista wiadomości będzie zajmować większość przestrzeni -->
+            <RowDefinition Height="Auto"/>
+            <!-- Wysokość automatyczna dla pola wprowadzania wiadomości -->
+        </Grid.RowDefinitions>
+
+        <!-- Widok wiadomości -->
+        <ScrollView Grid.Row="0">
+            <RefreshView IsRefreshing="{Binding IsRefreshing}"
+                         Command="{Binding RefreshCommand}">
+                <CollectionView ItemsSource="{Binding Messages}" SelectionMode="None" x:Name="MessagesCollectionView">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="5">
+                                <Frame BackgroundColor="{Binding IsCurrentUser}" HasShadow="True" Margin="5" Padding="10" CornerRadius="10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <!-- Nazwa użytkownika i treść wiadomości -->
+                                        <Label Text="{Binding User.Name}" FontAttributes="Bold" FontSize="14" Grid.Column="0"/>
+                                        <Label Text="{Binding Msg}" FontSize="18" Grid.Column="1"/>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </ScrollView>
+        <!-- Pole wprowadzania i przycisk wysyłania -->
+        <Grid Padding="10" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Entry Text="{Binding MyMsg}" Placeholder="Wpisz coś..." x:Name="MyMessage" HorizontalOptions="FillAndExpand" Grid.Column="0"/>
+            <Button Text="Dodaj" Command="{Binding AddMsgTeamCommand}" HorizontalOptions="End" Grid.Column="1"/>
+        </Grid>
+        </Grid>
+</ContentPage>

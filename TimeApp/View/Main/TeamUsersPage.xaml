@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimeApp.View.Main.TeamUsersPage"
              Title="TeamUsersPage">
+    
     <StackLayout>
         <Entry Text="{Binding Id}" Placeholder="Id użytkownika" x:Name="UserIdEntry" />
 
@@ -14,26 +15,21 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
 
             <Label Text="Nazwa" FontAttributes="Bold" FontSize="20" VerticalOptions="Center"/>
 
 
-            <Label Text="Leader" FontAttributes="Bold" FontSize="20" Grid.Column="1" HorizontalOptions="Start"/>
-
-
-            <Label Text="Moderator" FontAttributes="Bold" FontSize="20" Grid.Column="2" HorizontalOptions="Start"/>
+            <Label Text="Ranga" FontAttributes="Bold" FontSize="20" Grid.Column="1" HorizontalOptions="Start"/>
 
         </Grid>
 
-        <CollectionView ItemsSource="{Binding Users}" SelectionMode="None">
+        <CollectionView ItemsSource="{Binding Users}" SelectionMode="None" x:Name="MyCollectionView">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -43,13 +39,10 @@
                         <Label Text="{Binding Name}" VerticalOptions="Center"/>
 
                         <!-- Guzik "Tak" po lewej stronie -->
-                        <Button Text="Tak" Grid.Column="1" HorizontalOptions="Start"/>
-
-                        <!-- Guzik "Tak" po lewej stronie -->
-                        <Button CommandParameter="{Binding .}" Text="Tak" Grid.Column="2" HorizontalOptions="Start"/>
+                        <Label Text="{Binding Rank}" Grid.Column="1" HorizontalOptions="Start"/>
 
                         <!-- Guzik "Usuń" na końcu -->
-                        <Button CommandParameter="{Binding .}" Command="{Binding DelateUserFromTeamCommand}" Text="Usuń" Grid.Column="3" HorizontalOptions="End"/>
+                        <Button CommandParameter="{Binding .}" Command="{Binding BindingContext.DelateUserFromTeamCommand, Source={x:Reference MyCollectionView}}" Text="Usuń" Grid.Column="3" HorizontalOptions="End"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

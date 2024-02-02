@@ -14,9 +14,8 @@ namespace TimeAppRestApi.Models
         public int LeaderId { get; set; }
         public List<int> Moderators { get; set;}
         public List<int> MembersIds { get; set; }
-
         public List<TeamNote> TeamNotes { get; set; }
-
+        public List<Message> Messages { get; set; }
 
     }
 }

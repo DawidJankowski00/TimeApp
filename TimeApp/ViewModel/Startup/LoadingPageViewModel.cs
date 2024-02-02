@@ -28,6 +28,7 @@ namespace TimeApp.ViewModel
                 var user = JsonConvert.DeserializeObject<User>(userStr);
                 App.User = user;
                 await Shell.Current.GoToAsync($"{nameof(MainPage)}");
+
             }
         }
     }

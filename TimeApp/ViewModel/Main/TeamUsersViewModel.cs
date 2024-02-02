@@ -19,8 +19,8 @@ namespace TimeApp.ViewModel.Main
         UserService userService = new UserService();
         TeamService teamService = new TeamService();
 
-        private ObservableCollection<User> _users = new ObservableCollection<User>();
-        public ObservableCollection<User> Users
+        private ObservableCollection<TeamUser> _users = new ObservableCollection<TeamUser>();
+        public ObservableCollection<TeamUser> Users
         {
             get => _users;
             set => SetProperty(ref _users, value);
@@ -40,7 +40,19 @@ namespace TimeApp.ViewModel.Main
                 foreach (int id in App.ActualTeam.MembersIds)
                 {
                     var user = await UserService.GetUserById(id);
-                    Users.Add(user);
+                    TeamUser usr = new(user);
+                    if (App.ActualTeam.LeaderId == usr.Id) {
+                        usr.Rank = "Leader"; 
+                    }
+                    else if (App.ActualTeam.Moderators.Contains(usr.Id))
+                    {
+                        usr.Rank = "Moderator";
+                    }
+                    else
+                    {
+                        usr.Rank = "Użytkownik";
+                    }
+                    Users.Add(usr);
                 }
             }
         }
@@ -48,9 +60,17 @@ namespace TimeApp.ViewModel.Main
         [RelayCommand]
         async void AddUserToTeam()
         {
-            
+            if (App.ActualTeam.MembersIds.Contains(_id))
+            {
+                await Shell.Current.DisplayAlert("Error!", $"Użytkownik należy już do zespołu", "OK");
+                return;
+            }
             var user = await userService.GetUserById(_id);
             if (user == null) { return; }
+            if (user.GroupsId == null)
+            {
+                user.GroupsId = new List<int>();
+            }
             user.GroupsId.Add(App.ActualTeam.Id);
             var res = await userService.UpdateUser(user);
             App.ActualTeam.MembersIds.Add(_id);
@@ -83,14 +103,12 @@ namespace TimeApp.ViewModel.Main
             }
         }
 
-        public string IsMod(User user)
+        public string Rank
         {
-            if (App.ActualTeam.Moderators.Contains(App.User.Id))
+            get
             {
-                return "Tak";
+                return "Mod";
             }
-            return "Nie";
-            
         }
     }
 }

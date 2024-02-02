@@ -75,6 +75,7 @@ namespace TimeAppRestApi.Controllers
             existingTeam.Moderators = updatedTeam.Moderators;
             existingTeam.MembersIds = updatedTeam.MembersIds;
             existingTeam.TeamNotes = updatedTeam.TeamNotes;
+            existingTeam.Messages = updatedTeam.Messages;
 
             WriteTeamsToFile(teams);
 
