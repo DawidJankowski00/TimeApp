@@ -16,7 +16,7 @@ namespace TimeApp.Services
     {
         HttpClient _httpClient;
 
-        String httpadres = "https://timeapprestapi20231206171140.azurewebsites.net/";
+        String httpadres = ApiConfig.BaseUrl;
 
         public UserService()
         {
